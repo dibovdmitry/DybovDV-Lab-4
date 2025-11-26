@@ -30,7 +30,7 @@ def main():
     sparql = SPARQLWrapper(ENDPOINT_QUERY)
     sparql.setReturnFormat(JSON)
 
-    # Query 1 — все классы (с меткой)
+    # Все классы
     query1 = """
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -48,7 +48,7 @@ def main():
             label = result.get("label", {}).get("value", "No label")
             print(f"{cls} - {label}")
 
-    # Query 2 — все пиццы как подклассы pizza:Pizza (используем промежуточную ?label)
+    # Все пиццы как подклассы pizza:Pizza
     query2 = """
     PREFIX pizza: <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -68,10 +68,7 @@ def main():
             uri = result['pizza']['value']
             print(f"{name or uri}")
 
-    # -----------------------------
-    # Исправлённый Query 3 — пиццы с грибами
-    # Учитывает: подклассы pizza:Pizza, экземпляры, Restriction owl:someValuesFrom и прямые тройки.
-    # -----------------------------
+    # Пиццы с грибами
     query3 = """
     PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -119,10 +116,7 @@ def main():
     else:
         print("Нет результатов для пицц с грибами")
 
-    # -----------------------------
-    # Исправлённый Query 4 — популярные начинки (топ 10)
-    # Считает количество разных пицц (подклассы или экземпляры), где используется каждая начинка-класс.
-    # -----------------------------
+    # Популярные начинки (топ 10)
     query4 = """
     PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -136,7 +130,7 @@ def main():
       { ?pizza rdfs:subClassOf+ pizza:Pizza } UNION { ?pizza rdf:type pizza:Pizza }
       OPTIONAL { ?pizza rdfs:label ?pLabel }
 
-      # Получаем класс начинки из Restriction или из прямых тройк
+      # Класс начинки из Restriction или из прямых тройк
       OPTIONAL {
         ?pizza rdfs:subClassOf+ ?rnode .
         ?rnode a owl:Restriction .
@@ -149,8 +143,6 @@ def main():
       }
 
       OPTIONAL { ?tClass rdfs:label ?tLabel }
-
-      # Убедимся что tClass определён
       FILTER( BOUND(?tClass) )
     }
     GROUP BY ?tClass
@@ -167,7 +159,7 @@ def main():
     else:
         print("Нет данных по популярным начинкам")
 
-    # Query 5 — CONSTRUCT (вернём XML/RDF) — тоже используем путь для начинок
+    # CONSTRUCT
     query5 = """
     PREFIX pizza: <http://www.co-ode.org/ontologies/pizza/pizza.owl#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -180,7 +172,7 @@ def main():
     } WHERE {
       { ?pizza rdfs:subClassOf+ pizza:Pizza } UNION { ?pizza rdf:type pizza:Pizza }
 
-      # извлекаем начинку из Restriction или из прямой тройки
+      # Извлечение начинки из Restriction или из прямой тройки
       OPTIONAL {
         ?pizza rdfs:subClassOf+ ?rnode .
         ?rnode a owl:Restriction .
@@ -207,7 +199,7 @@ def main():
         except Exception as e:
             print(f"Ошибка сохранения CONSTRUCT результата: {e}", file=sys.stderr)
 
-    # RDFLib через SPARQL endpoint (чтение) — пример с подклассами/экземплярами
+    # RDFLib через SPARQL endpoint
     store = sparqlstore.SPARQLUpdateStore()
     try:
         store.open((ENDPOINT_QUERY, ENDPOINT_UPDATE))
@@ -274,7 +266,7 @@ def main():
     for key, value in ontology_stats.items():
         print(f"{key}: {value}")
 
-    # Тест endpoint'ов (короткий тест)
+    # Тест endpoint'ов
     def test_endpoints():
         endpoints = [
             "http://localhost:3030/pizza_ds/sparql",
