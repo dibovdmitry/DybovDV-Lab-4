@@ -1128,21 +1128,24 @@ if __name__ == "__main__":
 ![скриншот](report/Screenshot31.png "Распаковка и запуск Apache Jena Fuseki") \
 Рисунок 17 — "Распаковка и запуск Apache Jena Fuseki
 
-9. В Apache Jena Fuseki создан датасет, загружены RDF данные, выполнены SPARQL запросы.
+9. В Apache Jena Fuseki создан датасет, загружены RDF данные, выполнен SPARQL запрос с получением подсчёта всех триплетов;
 ![скриншот](report/Screenshot32.png "Создание датасета") \
 Рисунок 18 — Создание датасета \
 ![скриншот](report/Screenshot33.png "Создание датасета") \
 Рисунок 19 — Загрузка данных \
-![скриншот](report/Screenshot35.png "Создание датасета") \
-![скриншот](report/Screenshot35-2.png "Создание датасета") \
+![скриншот](report/Screenshot35.png "Запрос") \
+![скриншот](report/Screenshot35-2.png "Результат") \
 Рисунок 20 — Выполнение запроса
 10. Написаны и выполнены запросы в sparql_queries.py, получены табличные результаты и подсчёты триплетов.
+![скриншот](report/Screenshot37.png "Полученные результаты") \
+![скриншот](report/Screenshot38.png "Полученные результаты") \
+![скриншот](report/Screenshot39.png "Полученные результаты") \
+![скриншот](report/Screenshot41.png "Полученные результаты") \
+![скриншот](report/Screenshot42.png "Полученные результаты") \
+![скриншот](report/Screenshot44.png "Полученные результаты") \
+Рисунок 21 — Полученные результаты
 
-![скриншот](report/Screenshot6.png "Результаты SPARQL") Рисунок 6 — Примеры результатов SPARQL
-
-Интеграция с LLM
-
-Установлены transformers, SPARQLWrapper, rdflib, openai; написан скрипт генерации SPARQL из текста.
+11. Установлены transformers, SPARQLWrapper, rdflib, openai; написан скрипт генерации SPARQL из текста.
 
 При использовании тяжёлых моделей возникали ошибки скачивания и OOM; применена distilgpt2 и режимы с ограничением памяти.
 
