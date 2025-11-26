@@ -2,15 +2,7 @@
 # coding: utf-8
 
 """
-NL -> SPARQL помощник с локальной инструкционной моделью.
-Безопасная ленивaя загрузка модели с защитными обходами, чтобы избежать OOM / KILLED.
-
-Ключевые переменные окружения:
-  RUN_STARTUP_TESTS     по умолчанию 1
-  FORCE_MODEL_LOAD      по умолчанию 0 (установите 1, чтобы игнорировать проверки памяти)
-  MODEL_MIN_FREE_GB     по умолчанию 12  (минимум свободной ОЗУ для загрузки модели)
-  MODEL_MIN_FREE_GPU_GB по умолчанию 10  (минимум свободной VRAM для загрузки на GPU)
-  MODEL_PATH            путь к директории модели (опционально)
+Безопасная ленивaя загрузка модели с защитными обходами, чтобы избежать Out Of Memory / Убито.        
 """
 
 import os
@@ -620,9 +612,8 @@ def evaluate_sparql_generation():
         json.dump(evaluation_results, f, indent=2, ensure_ascii=False)
     return evaluation_results
 
-# -------------------------
+
 # Flask API
-# -------------------------
 app = Flask(__name__)
 generator = ImprovedSPARQLGenerator()
 validator = SPARQLValidator()
