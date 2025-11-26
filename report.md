@@ -86,8 +86,7 @@ if __name__ == "__main__":
     print("Отчёт сохранён: ontology_report.csv")
 ```
 - Скрипт sparql_queries.py
-```
-python
+```python
 #!/usr/bin/env python3
 # coding: utf-8
 
