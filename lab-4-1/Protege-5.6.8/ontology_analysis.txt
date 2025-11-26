@@ -1,0 +1,3 @@
+Корневые классы онтологии: Country, Food
+Глубина иерархии: 4
+Основные категории пицц: CheesyPizza, InterestingPizza, MeatyPizza, NamedPizza
